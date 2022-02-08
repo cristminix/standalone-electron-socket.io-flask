@@ -38,3 +38,9 @@ api.handle( 'custom-endpoint', ( event, data ) => function( event, data ) {
     console.log( data )
     socket.emit('my_broadcast_event', {data: data});
 }, event);
+
+(async () => {
+    const response = await window.api.doAction([1,2,3]);
+    console.log(response); // we now have the response from the main thread without exposing
+                           // ipcRenderer, leaving the app less vulnerable to attack    
+})();

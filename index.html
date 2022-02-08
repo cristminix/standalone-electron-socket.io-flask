@@ -5,35 +5,8 @@
     <title>Calling Python from Electron!</title>
     <script src="jquery-1.12.4.min.js"></script>
     <script src="socket.io.js"></script>
-<script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
+    <script src="renderer.js"></script>
 
-            namespace = 'http://127.0.0.1:5000/test';
-            var socket = io(namespace);
-
-            socket.on('connect', function() {
-                socket.emit('my_event', {data: 'connected to the SocketServer...'});
-            });
-
-            socket.on('my_response', function(msg, cb) {
-                $('#log').append('<br>' + $('<div/>').text('logs #' + msg.count + ': ' + msg.data).html());
-                if (cb)
-                    cb();
-            });
-            $('form#emit').submit(function(event) {
-                socket.emit('my_event', {data: $('#emit_data').val()});
-                return false;
-            });
-            $('form#broadcast').submit(function(event) {
-                socket.emit('my_broadcast_event', {data: $('#broadcast_data').val()});
-                return false;
-            });
-            $('form#disconnect').submit(function(event) {
-                socket.emit('disconnect_request');
-                return false;
-            });
-        });
-    </script>
 </head>
 <body style="background-color:white;">
 

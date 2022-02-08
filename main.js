@@ -1,8 +1,26 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow,ipcMain} = require('electron')
 const path = require('path')
+const {PythonShell} = require('python-shell');
+const kill = require('tree-kill')
+let shell;
 let mainWindow;
 
+function sendToPython() {
+
+  let options = {
+    mode: 'text'
+  };
+  
+  shell = new PythonShell('./py/server.py', options);
+}
+sendToPython();
+ipcMain.handle('an-action', async (event, arg) => {
+    // do stuff
+    console.log(arg)
+    // await awaitableProcess();
+    return "foo";
+})
 
 function createWindow () {
   // Create the browser window.
@@ -13,6 +31,7 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: true,
+      webSecurity:false
     }
   })
 
@@ -50,7 +69,7 @@ app.whenReady().then(() => {
     	
     }
 
-    mainWindow.webContents.send( 'custom-endpoint', {'data':3} );
+    // mainWindow.webContents.send( 'custom-endpoint', {'data':3} );
 	
   })
 })
@@ -60,6 +79,10 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
+  let childs = shell.childProcess
+  console.log(childs.pid)
+  // childs.kill('SIGINT')	
+  kill(childs.pid)	
 })
 
 // In this file you can include the rest of your app's specific main process

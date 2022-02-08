@@ -1,12 +1,12 @@
 {
-  "name": "standalone-electron-socket.io-flask",
+  "name": "python-nodejs-example",
   "version": "1.0.0",
-  "description": "simple project standalone electron with web socket client communication through python flask",
+  "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/cristminix/standalone-electron-socket.io-flask",
+  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
     "quick",
@@ -14,8 +14,8 @@
     "tutorial",
     "demo"
   ],
-  "author": "Putra Budiman",
-  "license": "LICENSE-MIT",
+  "author": "GitHub",
+  "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^17.0.0"
   },
@@ -23,6 +23,7 @@
     "electron-rebuild": "^3.2.7",
     "jquery": "^3.6.0",
     "python-shell": "^3.0.1",
-    "socket.io-client": "^4.4.1"
+    "socket.io-client": "^4.4.1",
+    "tree-kill": "^1.2.2"
   }
 }
