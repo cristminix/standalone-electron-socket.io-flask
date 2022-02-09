@@ -12,7 +12,7 @@ function sendToPython() {
     mode: 'text'
   };
   
-  shell = new PythonShell('./py/server.py', options);
+  shell = new PythonShell('./backend/server.py', options);
 }
 sendToPython();
 ipcMain.handle('an-action', async (event, arg) => {
@@ -36,7 +36,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('pub/index.html')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -61,6 +61,7 @@ app.whenReady().then(() => {
   createWindow()
 	
 	mainWindow.webContents.openDevTools()
+  mainWindow.webContents.send( 'custom-endpoint', {data:shell.childProcess} );
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -69,7 +70,7 @@ app.whenReady().then(() => {
     	
     }
 
-    // mainWindow.webContents.send( 'custom-endpoint', {'data':3} );
+    
 	
   })
 })
